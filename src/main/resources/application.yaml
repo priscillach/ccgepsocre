@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.97.21.254:3306/wzq?useSSL=false
+    username: root
+    password: obBOJxVm
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+#    static-path-pattern:
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    database: 0
+
+server:
+  servlet:
+    context-path: /cgs
+  port: 45321
+
+logging:
+  level:
+    root: info
+
+searchredisserviceimpl:
+  limit: 8
+
+elasticsearch:
+  host: 47.97.21.254
+  port: 9200
+  username: elastic
+  password: obBOJxVm
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+

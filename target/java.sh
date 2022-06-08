@@ -1,0 +1,1 @@
+nohup java -jar ccgepsocre-0.0.1-SNAPSHOT.jar >/home/cselab/wzq/logs/temp.txt &

@@ -1,0 +1,33 @@
+{
+    "properties": {
+        "alias": {
+            "type": "text",
+            "analyzer": "ngram_tokenizer_analyzer",
+            "search_analyzer": "keyword_tokenizer_analyzer",
+            "fields": {
+                "ngram": {
+                    "type": "text",
+                    "analyzer": "ngram_tokenizer_analyzer",
+                    "search_analyzer": "keyword_tokenizer_analyzer"
+                },
+                "keyword": {
+                    "type": "text",
+                    "analyzer": "keyword_tokenizer_analyzer",
+                    "search_analyzer": "keyword_tokenizer_analyzer"
+                },
+                "lowercase": {
+                    "type": "text",
+                    "analyzer": "lowercase_tokenizer_analyzer",
+                    "search_analyzer": "keyword_tokenizer_analyzer"
+                }
+            }
+        },
+        "id": {
+            "type": "integer"
+        },
+        "pert_id": {
+            "type": "integer",
+            "index": false
+        }
+    }
+}

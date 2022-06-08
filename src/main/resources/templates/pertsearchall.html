@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="'Search for compound keyword of \''+${pname}+'\''"></title>
+    <link type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        body{
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Oxygen-Sans,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue","Source Sans Pro",sans-serif;
+            color: #4d4f52;
+            line-height: 1.15;
+            margin: 0;
+            background-color: #fff;
+            min-width: 300px;
+            height: 100%;
+        }
+        .margin-0-auto{
+            margin:0 auto;
+        }
+        .text-align-center{
+            text-align:center;
+        }
+        thead tr td{
+            text-align:left;
+        }
+        tbody tr td{
+            text-align: center;
+        }
+        .customtd{
+            text-align:left;
+        }
+        .dataTables_wrapper{
+            width: fit-content;
+        }
+        .center{
+            margin: 0 auto;
+            width: 58%;
+        }
+        .min-content{
+            width: min-content;
+        }
+        .width-400px{
+            width: 400px;
+        }
+        .width-20{
+            width: 20%;
+        }
+        .width-10{
+            width: 10%;
+        }
+        .width-15{
+            width: 15%;
+        }
+        .width-13{
+            width: 13%;
+        }
+        .width-17{
+            width: 17%;
+        }
+        .width-18{
+            width: 18%;
+        }
+        .width-19{
+            width: 19%;
+        }
+        .width-9{
+            width: 9%;
+        }
+        .width-11{
+            width: 11%;
+        }
+        .width-6{
+            width: 6%;
+        }
+        .width-8{
+            width: 8%;
+        }
+        .width-800px{
+            width: 800px;
+        }
+        .width-150px{
+            width: 150px;
+        }
+        .width-200px{
+            width: 200px;
+        }
+        .width-500px{
+            width: 500px;
+        }
+        .width-700px{
+            width: 700px;
+        }
+        .word-wrap{
+            word-wrap:break-word;
+            word-break:break-all;
+        }
+        span.hlpart {
+            background-color:#fbff8a;
+            line-height: inherit;
+        }
+    </style>
+    <script type="text/javascript" th:inline="javascript">
+        $(document).ready( function() {
+            $('#pert_table').dataTable( {
+                columnDefs : [ {
+                    targets : 1,
+                    "orderable" : false
+                },{
+                    targets : 3,
+                    "orderable" : false
+                },{
+                    targets : 4,
+                    "orderable" : false
+                },{
+                    targets : 5,
+                    "orderable" : false
+                },{
+                    targets : 6,
+                    "orderable" : false
+                }],
+                "order": []
+            } );
+        } );
+    </script>
+</head>
+<body>
+<div class="center">
+    <h2 th:text="'Search for Compound Keyword of \''+${pname}+'\''"></h2>
+    <table class="display compact" id="pert_table">
+        <thead>
+        <tr>
+            <td class="width-17 word-wrap customtd"><strong>Name</strong></td>
+            <td class="width-17 word-wrap customtd"><strong>Alias</strong></td>
+            <td class="width-13 word-wrap"><strong>PubChem CID</strong></td>
+            <td class="width-11 word-wrap"><strong>DrugBank ID</strong></td>
+            <td class="width-18 word-wrap customtd"><strong>Canonical SMILES</strong></td>
+            <td class="width-15 word-wrap customtd"><strong>InChi Key</strong></td>
+            <td class="width-9"><strong>Contrast Group List</strong></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each=" pert : ${perts}">
+            <td class="width-17 word-wrap customtd" th:text="${pert.Pubchem_title}"/>
+            <td class="width-17 word-wrap customtd" th:utext="${pert.highLightAlias}"/>
+            <td class="width-13 word-wrap"><a th:href="@{'https://pubchem.ncbi.nlm.nih.gov/compound/'+${pert.Pubchem_cid}}" th:text="${pert.Pubchem_cid}"></a></td>
+            <td class="width-11 word-wrap"><a th:href="@{'https://go.drugbank.com/drugs/'+${pert.Drugbank_id}}" th:text="${pert.Drugbank_id}"></a></td>
+            <td class="width-18 word-wrap customtd" th:text="${pert.CanonicalSMILES}"/>
+            <td class="width-15 word-wrap customtd" th:text="${pert.InChIKey}"/>
+            <td class="width-9"><a th:href="@{'/pid/'+${pert.pert_id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>

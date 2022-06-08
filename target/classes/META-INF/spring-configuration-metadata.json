@@ -1,0 +1,52 @@
+{
+  "groups": [
+    {
+      "name": "elasticsearch",
+      "type": "org.wzq.bioplat.config.ElasticsearchConfig",
+      "sourceType": "org.wzq.bioplat.config.ElasticsearchConfig"
+    },
+    {
+      "name": "searchredisserviceimpl",
+      "type": "org.wzq.bioplat.service.SearchRedisServiceImpl",
+      "sourceType": "org.wzq.bioplat.service.SearchRedisServiceImpl"
+    }
+  ],
+  "properties": [
+    {
+      "name": "elasticsearch.host",
+      "type": "java.lang.String",
+      "sourceType": "org.wzq.bioplat.config.ElasticsearchConfig"
+    },
+    {
+      "name": "elasticsearch.password",
+      "type": "java.lang.String",
+      "sourceType": "org.wzq.bioplat.config.ElasticsearchConfig"
+    },
+    {
+      "name": "elasticsearch.port",
+      "type": "java.lang.Integer",
+      "sourceType": "org.wzq.bioplat.config.ElasticsearchConfig"
+    },
+    {
+      "name": "elasticsearch.username",
+      "type": "java.lang.String",
+      "sourceType": "org.wzq.bioplat.config.ElasticsearchConfig"
+    },
+    {
+      "name": "searchredisserviceimpl.limit",
+      "type": "java.lang.Integer",
+      "sourceType": "org.wzq.bioplat.service.SearchRedisServiceImpl"
+    },
+    {
+      "name": "searchredisserviceimpl.pert-by-i-d-d-a-o",
+      "type": "org.wzq.bioplat.dao.PertByIDDAO",
+      "sourceType": "org.wzq.bioplat.service.SearchRedisServiceImpl"
+    },
+    {
+      "name": "searchredisserviceimpl.redis-helper",
+      "type": "org.wzq.bioplat.utils.RedisHelper",
+      "sourceType": "org.wzq.bioplat.service.SearchRedisServiceImpl"
+    }
+  ],
+  "hints": []
+}

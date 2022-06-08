@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="'Search for contrast groups of the compound '+${pert.Pubchem_title}">Bootstrap 101 Template</title>
+    <link type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        body{
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Oxygen-Sans,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue","Source Sans Pro",sans-serif;
+            color: #4d4f52;
+            line-height: 1.15;
+            margin: 0;
+            background-color: #fff;
+            height: 100%;
+        }
+        .width-500{
+            width: 500px;
+        }
+        .margin-0-auto{
+            margin:0 auto;
+        }
+        .text-align-center{
+            text-align:center;
+        }
+        thead tr td{
+            text-align:left;
+        }
+        tbody tr td{
+            text-align: center;
+        }
+        .table tbody tr td{
+            text-align: left;
+        }
+        table.dataTable{
+            width: min-content;
+        }
+        .dataTables_wrapper{
+            width: min-content;
+        }
+        .center{
+            margin: 0 auto;
+            width: min-content;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+<div>
+    <h2>Compound Information</h2>
+    <table class="table table-condensed table-bordered">
+        <tbody>
+        <tr>
+            <td style="font-weight: bold" th:text="Name"/>
+            <td th:text="${pert.Pubchem_title}"/>
+
+        </tr>
+        <tr>
+            <td style="font-weight: bold">PubChem CID</td>
+            <td th:text="${pert.Pubchem_cid}"/>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Canonical SMILES</td>
+            <td th:text="${pert.CanonicalSMILES}"/>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">InChI Key</td>
+            <td th:text="${pert.InChIKey}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="">
+    <h2>Contrast Group</h2>
+    <table class="display compact" id="contrast_table">
+        <thead>
+        <tr>
+            <td><strong>Project</strong></td>
+            <td><strong>GEO Accession ID</strong></td>
+            <td><strong>Cosmic Sample Name</strong></td>
+            <td><strong>TCGA Classification</strong></td>
+            <td><strong>GTEx Tissue</strong></td>
+            <td><strong>Pert Dose</strong></td>
+            <td><strong>Pert Dose Unit</strong></td>
+            <td><strong>Pert Time (hour)</strong></td>
+            <td><strong>Control Type</strong></td>
+            <td><strong>KS Score</strong></td>
+            <td><strong>KS Rank Percentage</strong></td>
+            <td><strong>XCos Score</strong></td>
+            <td><strong>XCos Rank Percentage</strong></td>
+            <td><strong>XSum Score</strong></td>
+            <td><strong>XSum Rank Percentage</strong></td>
+            <td><strong>Zhang's Score</strong></td>
+            <td><strong>Zhang's Rank Percentage</strong></td>
+            <td><strong>Crispr Score</strong></td>
+            <td><strong>Crispr Rank Percentage</strong></td>
+            <td><strong>Gene Analysis List</strong></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each=" contrast : ${contrasts}">
+            <td th:text="${contrast.source}"/>
+            <td th:text="${contrast.geoAccessionId}"/>
+            <td th:text="${contrast.cosmicSampleName}"/>
+            <td th:text="${contrast.tcgaClassification}"/>
+            <td th:text="${contrast.gtExTissue}"/>
+            <td th:text="${contrast.pertDose}"/>
+            <td th:text="${contrast.pertDoseUnit}"/>
+            <td th:text="${contrast.pertTimeTreatment}"/>
+            <td th:text="${contrast.controlType}"/>
+            <td th:text="${(contrast.ksScore!=0 and contrast.ksScore!=null)?#numbers.formatDecimal(contrast.ksScore,1,4):null}"/>
+            <td th:text="${(contrast.ksRank!=0 and contrast.ksRank!=null)?#numbers.formatPercent(contrast.ksRank, 1, 2):null}"/>
+            <td th:text="${contrast.xCosScore!=null?#numbers.formatDecimal(contrast.xCosScore,1,4):null}"/>
+            <td th:text="${contrast.xCosRank!=null?#numbers.formatPercent(contrast.xCosRank, 1, 2):null}"/>
+            <td th:text="${contrast.xSumScore!=null?#numbers.formatDecimal(contrast.xSumScore,1,4):null}"/>
+            <td th:text="${contrast.xSumRank!=null?#numbers.formatPercent(contrast.xSumRank, 1, 2):null}"/>
+            <td th:text="${contrast.zhangScore!=null?#numbers.formatDecimal(contrast.zhangScore,1,4):null}"/>
+            <td th:text="${contrast.zhangRank!=null?#numbers.formatPercent(contrast.zhangRank, 1, 2):null}"/>
+            <td th:text="${(contrast.crisprScore!=0 and contrast.crisprScore!=null)?#numbers.formatDecimal(contrast.crisprScore, 1, 4):null}"/>
+            <td th:text="${(contrast.crisprRank!=0 and contrast.crisprRank!=null)?#numbers.formatPercent(contrast.crisprRank, 1, 2):null}"/>
+            <td><a th:href="@{'/cid/'+${contrast.contrastId}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+    $.fn.dataTableExt.oSort['nullable-asc'] = function(a,b) {
+        if (a == '' || a == null)
+            return 1;
+        else if (b == '' || b == null)
+            return -1;
+        else
+        {
+            var ia = parseInt(a);
+            var ib = parseInt(b);
+            return (ia<ib) ? -1 : ((ia > ib) ? 1 : 0);
+        }
+    };
+
+    $.fn.dataTableExt.oSort['nullable-desc'] = function(a,b) {
+        if (a == '' || a == null)
+            return 1;
+        else if (b == '' || b == null)
+            return -1;
+        else
+        {
+            var ia = parseInt(a);
+            var ib = parseInt(b);
+            return (ia>ib) ? -1 : ((ia < ib) ? 1 : 0);
+        }
+    };
+    $(document).ready( function() {
+        $('#contrast_table').dataTable( {
+            columnDefs : [ {
+                targets : 0,
+                "orderable" : false
+            },{
+                targets : 5,
+                orderData: [ 5, 6 ]
+            },{
+                targets : 6,
+                "orderable" : false
+            },{
+                targets : 8,
+                "orderable" : false
+            }, {
+                targets : 9,
+                "orderable" : false
+            }, {
+                targets : 10,
+                "orderable" : true,
+                "sType": "nullable"
+            }, {
+                targets : 11,
+                "orderable" : false
+            }, {
+                targets : 12,
+                "orderable" : true,
+                "sType": "nullable"
+            }, {
+                targets : 13,
+                "orderable" : false
+            }, {
+                targets : 14,
+                "orderable" : true,
+                "sType": "nullable"
+            }, {
+                targets : 15,
+                "orderable" : false
+            }, {
+                targets : 16,
+                "orderable" : true,
+                "sType": "nullable"
+            }, {
+                targets : 17,
+                "orderable" : false
+            }, {
+                targets : 18,
+                "orderable" : true,
+                "sType": "nullable"
+            } , {
+                targets : 19,
+                "orderable" : false
+            }
+            ],
+            "order" : [ [ 18, 'asc' ] ]
+        } );
+    } );
+</script>
+</html>
